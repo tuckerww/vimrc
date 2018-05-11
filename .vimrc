@@ -15,6 +15,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'powerline/fonts'
 "Plugin 'bling/vim-bufferline'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
 "Plugin 'scrooloose/nerd"tree'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
@@ -110,6 +111,18 @@ nnoremap <leader>x :Vex<cr>
 " increase and decrease split width
 nnoremap <leader>ll :vertical resize +3<cr>
 nnoremap <leader>hh :vertical resize -3<cr>
+
+" make ack.vim use ag instead of ack
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep --smart-case'
+  cnoreabbrev ag Ack!
+  cnoreabbrev aG Ack!
+  cnoreabbrev Ag Ack!
+  cnoreabbrev AG Ack!
+endif
+
+" ack/ag search
+nnoremap <leader>a :Ack!<Space>
 
 " Make search more sane
 set ignorecase " case insensitive search
