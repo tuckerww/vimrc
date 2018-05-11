@@ -91,7 +91,7 @@ nnoremap <leader>q :bd!<cr>
 nnoremap <leader>g :GundoToggle<cr>
 
 "toggle git gutter (airblade)
-nnoremap <leader>a :GitGutterToggle<cr>
+nnoremap <leader>gg :GitGutterToggle<cr>
 
 " move among buffers with CTRL
 map <C-J> :bprev<CR>
