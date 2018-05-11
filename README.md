@@ -7,14 +7,12 @@ To Set Up:
 
 ```git clone https://github.com/tuckerww/vimrc.git```
 
-```mv vimrc/.vimrc .```
+```rm -f .vimrc```
 
-```rm -rf vimrc```
+```ln -s vimrc/.vimrc .vimrc```
 
 ```mkdir -p ~/.vim/bundle ~/.vim/backup ~/.vim/swap ~/.vim/undo```
 
 ```git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim```
 
-In Vim:
-
-```:PluginInstall```
+```vim +PluginInstall +qall```
