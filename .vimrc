@@ -35,7 +35,8 @@ set fileencodings=utf-8
 set laststatus=2
 set ttimeoutlen=10
 set noshowmode
-set nonumber
+set number
+set relativenumber
 filetype plugin indent on
 set expandtab
 set tabstop=2
@@ -71,8 +72,28 @@ function! MouseToggle()
     endif
 endfunction
 
+" unset relative when entering insret mode or losing focus
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
 " toggle numbers with ',n'
-nnoremap <leader>n :setlocal number!<cr>
+nnoremap <leader>n :call NumberToggle()<cr>
+function! NumberToggle()
+    if &number && &relativenumber
+        setlocal number!
+    elseif &relativenumber
+        setlocal relativenumber!
+        setlocal number
+    elseif &number
+        setlocal number!
+    else
+        setlocal number
+        setlocal relativenumber
+    endif
+endfunction
 
 " open command in new buffer, split, or vsplit  with ,[char]
 nnoremap <leader>c :enew\|%!
