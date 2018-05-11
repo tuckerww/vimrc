@@ -59,6 +59,8 @@ inoremap <S-Tab> <C-d>
 " Map comma as leader
 let mapleader = ","
 
+nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=darkgrey<cr>
+
 "Note : shift+left-mouse copies and shift+rightmouse pastes!
 "use ',m' to toggle mouse selection
 nnoremap <leader>m :call MouseToggle()<cr>
