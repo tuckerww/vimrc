@@ -21,6 +21,20 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'sjl/gundo.vim'
+Plugin 'ervandew/supertab'
+" for writing:
+Plugin 'reedes/vim-pencil'
+Plugin 'reedes/vim-litecorrect'
+Plugin 'kana/vim-textobj-user'
+Plugin 'reedes/vim-textobj-sentence'
+Plugin 'reedes/vim-wordy'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+Plugin 'reedes/vim-wheel'
+
+"for latex:
+Plugin 'lervag/vimtex'
+Plugin 'xuhdev/vim-latex-live-preview'
 
 ":PluginInstall
 
@@ -44,6 +58,7 @@ set shiftwidth=2
 set hidden
 set mouse=a
 set ttymouse=xterm2
+set history=2000
 
 "set backup and swap dirs:
 set backupdir=~/.vim/backup//
@@ -59,7 +74,7 @@ inoremap <S-Tab> <C-d>
 " Map comma as leader
 let mapleader = ","
 
-nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=darkgrey<cr>
+nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=DarkGrey<cr>
 
 "Note : shift+left-mouse copies and shift+rightmouse pastes!
 "use ',m' to toggle mouse selection
@@ -74,12 +89,12 @@ function! MouseToggle()
     endif
 endfunction
 
-" unset relative when entering insret mode or losing focus
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+" unset relative when entering insert mode or losing focus
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+"   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" augroup END
 
 " toggle numbers with ',n'
 nnoremap <leader>n :call NumberToggle()<cr>
@@ -96,6 +111,23 @@ function! NumberToggle()
         setlocal relativenumber
     endif
 endfunction
+
+" Toggle writing mode
+nnoremap <leader>wm :call WritingMode()<cr>
+function! WritingMode()
+   setlocal formatoptions=1
+   setlocal noexpandtab
+   map j gj
+   map k gk
+   setlocal spell spelllang=en_us
+   " set thesaurus+=~/.vim/thes
+   set complete+=s
+   set formatprg=par
+   setlocal wrap
+   setlocal linebreak
+endfu
+
+let g:wheel#scroll_on_wrap = 1
 
 " open command in new buffer, split, or vsplit  with ,[char]
 nnoremap <leader>c :enew\|%!
@@ -117,8 +149,10 @@ nnoremap <leader>g :GundoToggle<cr>
 nnoremap <leader>gg :GitGutterToggle<cr>
 
 " move among buffers with CTRL
-map <C-J> :bprev<CR>
-map <C-K> :bnext<CR>
+map gT :bprev<CR>
+map gt :bnext<CR>
+
+" Note crtl-j and ctrl-k now wheel down and up with wheel plugin
 
 " make netrw better
 " refer to https://shapeshed.com/vim-netrw/ for more info
@@ -164,7 +198,11 @@ vnoremap ; :
 " a word
 inoremap jf <esc>l
 
-set background=dark
+"for latex servername:
+" if empty(v:servername) && exists('*remote_startserver')
+"   call remote_startserver('VIM')
+" endif
+
 "let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 "let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -172,51 +210,20 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 0
 "let g:airline_theme = 'hybrid'
 "let g:airline_theme = 'powerlineish'
-let g:airline_theme = 'alduin'
-"colorscheme default
+"let g:airline_theme = 'alduin'
+let g:airline_theme = 'angr'
 
 set t_Co=256
 set background=dark
 "colorscheme Monokai
 "colorscheme elflord
-colorscheme delek
-hi Search ctermfg=Red ctermbg=DarkBlue
-"hi StatusLine ctermbg=DarkBlue
-highlight Normal ctermbg=NONE
+"colorscheme delek
+"colorscheme 0x7A69_dark
+colorscheme 1989
+
+"Make search highlighting readable:
+" hi IncSearch ctermbg=DarkGrey
+" hi Search ctermbg=DarkGrey
+hi IncSearch ctermbg=DarkGrey cterm=underline
+hi Search ctermbg=DarkGrey term=underline
 highlight nonText ctermbg=NONE
-
-"if has("terminfo")
-"  let &t_Co=16
-"  let &t_AB="\<Esc>[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm"
-"  let &t_AF="\<Esc>[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm"
-"else
-"  let &t_Co=16
-"  let &t_Sf="\<Esc>[3%dm"
-"  let &t_Sb="\<Esc>[4%dm"
-"endif
-
- if !exists('g:airline_symbols')
-   let g:airline_symbols = {}
- endif
- let g:airline_symbols.space = "\ua0"
-
- " unicode symbols
- let g:airline_left_sep = ''
- let g:airline_left_sep = ''
- let g:airline_right_sep = ''
- let g:airline_right_sep = ''
- let g:airline_symbols.crypt = ''
- let g:airline_symbols.linenr = '☰'
- let g:airline_symbols.linenr = ''
- let g:airline_symbols.maxlinenr = ''
- "let g:airline_symbols.maxlinenr = '㏑'
- let g:airline_symbols.branch = ''
- let g:airline_symbols.paste = 'ρ'
- "let g:airline_symbols.paste = 'Þ'
- "let g:airline_symbols.paste = '∥'
- "let g:airline_symbols.spell = 'Ꞩ'
- let g:airline_symbols.spell = 'S'
- let g:airline_symbols.notexists = '∄'
- let g:airline_symbols.whitespace = 'Ξ'
- "
- 
