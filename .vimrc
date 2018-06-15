@@ -227,5 +227,7 @@ colorscheme delek
 " hi IncSearch ctermbg=DarkGrey
 " hi Search ctermbg=DarkGrey
 hi IncSearch ctermbg=DarkGrey cterm=underline
-hi Search ctermbg=DarkGrey term=underline
-highlight nonText ctermbg=NONE
+hi Search ctermbg=DarkGrey cterm=underline
+hi nonText ctermbg=NONE
+" highlight the cursorline:
+hi CursorLine cterm=NONE ctermbg=DarkGrey
