@@ -198,6 +198,8 @@ vnoremap ; :
 " a word
 inoremap jf <esc>l
 
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
 "for latex servername:
 " if empty(v:servername) && exists('*remote_startserver')
 "   call remote_startserver('VIM')
@@ -217,9 +219,9 @@ set t_Co=256
 set background=dark
 "colorscheme Monokai
 "colorscheme elflord
-"colorscheme delek
+colorscheme delek
 "colorscheme 0x7A69_dark
-colorscheme 1989
+"colorscheme 1989
 
 "Make search highlighting readable:
 " hi IncSearch ctermbg=DarkGrey
