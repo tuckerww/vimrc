@@ -35,12 +35,15 @@ Plugin 'reedes/vim-wheel'
 "for latex:
 Plugin 'lervag/vimtex'
 Plugin 'xuhdev/vim-latex-live-preview'
+"for notes
+Plugin 'vimwiki/vimwiki'
 
 ":PluginInstall
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+syntax on
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 
@@ -72,9 +75,11 @@ inoremap <S-Tab> <C-d>
 "note that ctrl-t and ctrl-d are built-in indent and unindent commands
 
 " Map comma as leader
-let mapleader = ","
+let mapleader = "\\"
 
 nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=DarkGrey<cr>
+
+nnoremap <leader>s :set spell!<cr>
 
 "Note : shift+left-mouse copies and shift+rightmouse pastes!
 "use ',m' to toggle mouse selection
@@ -128,15 +133,16 @@ function! WritingMode()
 endfu
 
 let g:wheel#scroll_on_wrap = 1
+let g:wheel#map#mouse = 0
 
 " open command in new buffer, split, or vsplit  with ,[char]
 nnoremap <leader>c :enew\|%!
-nnoremap <leader>s :new\|0read!
+nnoremap <leader>h :new\|0read!
 nnoremap <leader>v :vnew\|0read!
 
-nnoremap <leader>cc :enew<cr>
-nnoremap <leader>ss :new<cr>
-nnoremap <leader>vv :vnew<cr>
+" nnoremap <leader>cc :enew<cr>
+" nnoremap <leader>ss :new<cr>
+" nnoremap <leader>vv :vnew<cr>
 
 " force delete buffer with ,bd
 nnoremap <leader>q :bd!<cr>
@@ -190,13 +196,18 @@ set hlsearch " highlight matches
 set gdefault " use the `g` flag by default.
 
 " So we don't have to press shift when we want to get into command mode.
-nnoremap ; :
-vnoremap ; :
+" --- Commented out so you can use ';' to progress forward in per-line character search ---
+" nnoremap ; :
+" vnoremap ; :
 
 " So we don't have to reach for escape to leave insert mode.
 " also puts it back in the same place so you don't have to hit right to delete
 " a word
 inoremap jf <esc>l
+
+" vimwiki with markdown support
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+" helppage -> :h vimwiki-syntax 
 
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
@@ -220,6 +231,7 @@ set background=dark
 "colorscheme Monokai
 "colorscheme elflord
 colorscheme delek
+" colorscheme CandyPaper
 "colorscheme 0x7A69_dark
 "colorscheme 1989
 
@@ -228,6 +240,7 @@ colorscheme delek
 " hi Search ctermbg=DarkGrey
 hi IncSearch ctermbg=DarkGrey cterm=underline
 hi Search ctermbg=DarkGrey cterm=underline
+hi SpellBad ctermbg=520 cterm=underline
 hi nonText ctermbg=NONE
 " highlight the cursorline:
 hi CursorLine cterm=NONE ctermbg=DarkGrey
