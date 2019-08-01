@@ -22,6 +22,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'sjl/gundo.vim'
 Plugin 'ervandew/supertab'
+Plugin 'Yggdroot/indentLine'
 " for writing:
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-litecorrect'
@@ -56,8 +57,9 @@ set number
 set relativenumber
 filetype plugin indent on
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
+" set colorcolumn=80
 set hidden
 set mouse=a
 set ttymouse=xterm2
@@ -205,6 +207,10 @@ set gdefault " use the `g` flag by default.
 " a word
 inoremap jf <esc>l
 
+" open splits to right and down
+set splitbelow
+set splitright
+
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 " helppage -> :h vimwiki-syntax 
@@ -244,3 +250,4 @@ hi SpellBad ctermbg=520 cterm=underline
 hi nonText ctermbg=NONE
 " highlight the cursorline:
 hi CursorLine cterm=NONE ctermbg=DarkGrey
+hi ColorColumn ctermbg=magenta
