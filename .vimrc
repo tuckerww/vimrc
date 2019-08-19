@@ -157,8 +157,8 @@ nnoremap <leader>g :GundoToggle<cr>
 nnoremap <leader>gg :GitGutterToggle<cr>
 
 " move among buffers with CTRL
-map gT :bprev<CR>
-map gt :bnext<CR>
+map gB :bprev<CR>
+map gb :bnext<CR>
 
 " Note crtl-j and ctrl-k now wheel down and up with wheel plugin
 
@@ -214,6 +214,9 @@ set splitright
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 " helppage -> :h vimwiki-syntax 
+
+" don't conceal special characters
+set conceallevel=0
 
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
