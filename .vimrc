@@ -21,8 +21,9 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'sjl/gundo.vim'
-Plugin 'ervandew/supertab'
 Plugin 'Yggdroot/indentLine'
+" Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/AutoComplPop'
 " for writing:
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-litecorrect'
@@ -33,11 +34,12 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/limelight.vim'
 Plugin 'reedes/vim-wheel'
 
-"for latex:
+" for latex:
 Plugin 'lervag/vimtex'
 Plugin 'xuhdev/vim-latex-live-preview'
 "for notes
 Plugin 'vimwiki/vimwiki'
+Plugin 'nelstrom/vim-markdown-folding'
 
 ":PluginInstall
 
@@ -70,18 +72,22 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 
-"shift+tab unindents for command mode
-nnoremap <S-Tab> <<
-"shift+tab unindents for insert mode
-inoremap <S-Tab> <C-d>
-"note that ctrl-t and ctrl-d are built-in indent and unindent commands
+" "shift+tab unindents for command mode
+" nnoremap <S-Tab> <<
+" "shift+tab unindents for insert mode
+" inoremap <S-Tab> <C-d>
+" "note that ctrl-t and ctrl-d are built-in indent and unindent commands
 
 " Map comma as leader
 let mapleader = "\\"
 
 nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=DarkGrey<cr>
 
+nnoremap <leader>p :set paste!<cr>
 nnoremap <leader>s :set spell!<cr>
+
+" Wrap space-delimited word in backticks like `so`
+nnoremap <leader>w lBi`<ESC>Ea`<ESC>
 
 "Note : shift+left-mouse copies and shift+rightmouse pastes!
 "use ',m' to toggle mouse selection
@@ -136,6 +142,11 @@ endfu
 
 let g:wheel#scroll_on_wrap = 1
 let g:wheel#map#mouse = 0
+
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 " open command in new buffer, split, or vsplit  with ,[char]
 nnoremap <leader>c :enew\|%!
@@ -215,15 +226,17 @@ set splitright
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 " helppage -> :h vimwiki-syntax 
 
-" don't conceal special characters
-set conceallevel=0
-
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 "for latex servername:
 " if empty(v:servername) && exists('*remote_startserver')
 "   call remote_startserver('VIM')
 " endif
+
+" fix indentLine plugin conceal issues and link-hiding issue
+let g:indentLine_setConceal = 0
+" don't conceal special characters
+set conceallevel=0
 
 "let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 "let g:airline_skip_empty_sections = 1
@@ -233,23 +246,40 @@ let g:airline#extensions#whitespace#enabled = 0
 "let g:airline_theme = 'hybrid'
 "let g:airline_theme = 'powerlineish'
 "let g:airline_theme = 'alduin'
+" let g:airline_theme = 'ayu_mirage'
 let g:airline_theme = 'angr'
 
 set t_Co=256
 set background=dark
-"colorscheme Monokai
-"colorscheme elflord
+" colorscheme Monokai
+" colorscheme elflord
 colorscheme delek
 " colorscheme CandyPaper
-"colorscheme 0x7A69_dark
-"colorscheme 1989
+" colorscheme 0x7A69_dark
+" colorscheme 1989
+
+" Red numbers not on cursorLine
+" hi LineNr term=underline ctermfg=1 ctermbg=236 guifg=#878787 guibg=#303030
+
+" no background color:
+" hi Normal ctermbg=NONE
+
+" blue visual-select:
+" hi Visual ctermbg=blue
+hi Visual ctermbg=496
 
 "Make search highlighting readable:
 " hi IncSearch ctermbg=DarkGrey
 " hi Search ctermbg=DarkGrey
 hi IncSearch ctermbg=DarkGrey cterm=underline
 hi Search ctermbg=DarkGrey cterm=underline
+
+":h hl-SpellBad
 hi SpellBad ctermbg=520 cterm=underline
+hi SpellCap ctermbg=520 cterm=underline
+hi SpellLocal ctermbg=500 cterm=underline
+hi SpellRare ctermbg=503 cterm=underline
+
 hi nonText ctermbg=NONE
 " highlight the cursorline:
 hi CursorLine cterm=NONE ctermbg=DarkGrey
