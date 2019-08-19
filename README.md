@@ -7,7 +7,9 @@ To Set Up:
 
 ```cd ~/.vim;```
 
-```git clone https://github.com/tuckerww/vimrc.git```
+```rm -rf * .*```
+
+```git clone https://github.com/tuckerww/vimrc.git .```
 
 ```rm -f ~/.vimrc```
 
