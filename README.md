@@ -1,17 +1,17 @@
 # vimrc
-My .vimrc file
+My .vimrc file, plus other directories and file-specific commands
 
 To Set Up:
 
-```cd ~;```
+```mkdir ~/.vim;```
+
+```cd ~/.vim;```
 
 ```git clone https://github.com/tuckerww/vimrc.git```
 
-```rm -f .vimrc```
+```rm -f ~/.vimrc```
 
-```ln -s vimrc/.vimrc .vimrc```
-
-```mkdir -p ~/.vim/bundle ~/.vim/backup ~/.vim/swap ~/.vim/undo ~/.vim/sessions```
+```ln -s ~/.vim/.vimrc ~/.vimrc```
 
 ```git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim```
 
