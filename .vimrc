@@ -222,6 +222,12 @@ inoremap jf <esc>l
 set splitbelow
 set splitright
 
+" show list of completions on command line
+set wildmenu
+
+" show partial command as you type
+set showcmd
+
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 " helppage -> :h vimwiki-syntax 
