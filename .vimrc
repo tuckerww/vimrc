@@ -23,7 +23,7 @@ Plugin 'henrik/vim-indexed-search'
 Plugin 'sjl/gundo.vim'
 Plugin 'Yggdroot/indentLine'
 " Plugin 'ervandew/supertab'
-Plugin 'vim-scripts/AutoComplPop'
+" Plugin 'vim-scripts/AutoComplPop'
 " for writing:
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-litecorrect'
@@ -57,7 +57,6 @@ set ttimeoutlen=10
 set noshowmode
 set number
 set relativenumber
-filetype plugin indent on
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -232,7 +231,15 @@ set showcmd
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 " helppage -> :h vimwiki-syntax 
 
+" file-specific mappings
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd Filetype javascript inoremap cl_ console.log();<esc>hi
+
+" spacing by file-type
+autocmd BufRead,BufNewFile *.vue setfiletype html
+autocmd Filetype php setlocal ts=2 sw=4 sts=0 expandtab
+autocmd Filetype html setlocal ts=4 sw=4 sts=0 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
 
 "for latex servername:
 " if empty(v:servername) && exists('*remote_startserver')

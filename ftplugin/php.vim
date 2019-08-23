@@ -12,3 +12,6 @@
 
 " Remap pr_ to print "<pre>" . print_r(, true) . "</pre>";
 :inoremap pr_ print "<pre>" . print_r(, true) . "</pre>";<esc>F,i
+
+" Remap em_ to mail("tucker@brownrice.com, "** ", );
+:inoremap em_ mail("tucker@brownrice.com", "** ", );<esc>F"i
