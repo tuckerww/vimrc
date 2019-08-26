@@ -85,6 +85,9 @@ nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=DarkG
 nnoremap <leader>p :set paste!<cr>
 nnoremap <leader>s :set spell!<cr>
 
+" clear search
+nnoremap <leader><space> :noh<cr>
+
 " Wrap space-delimited word in backticks like `so`
 nnoremap <leader>w lBi`<ESC>Ea`<ESC>
 
