@@ -219,6 +219,9 @@ set gdefault " use the `g` flag by default.
 " also puts it back in the same place so you don't have to hit right to delete
 " a word
 inoremap jf <esc>l
+inoremap fj <esc>l
+inoremap jj <esc>l
+inoremap ff <esc>l
 
 " open splits to right and down
 set splitbelow
