@@ -221,7 +221,6 @@ set gdefault " use the `g` flag by default.
 inoremap jf <esc>l
 inoremap fj <esc>l
 inoremap jj <esc>l
-inoremap ff <esc>l
 
 " open splits to right and down
 set splitbelow
