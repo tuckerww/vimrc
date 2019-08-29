@@ -77,7 +77,7 @@ set undodir=~/.vim/undo//
 " inoremap <S-Tab> <C-d>
 " "note that ctrl-t and ctrl-d are built-in indent and unindent commands
 
-" Map comma as leader
+" Map backslash as leader
 let mapleader = "\\"
 
 nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=DarkGrey<cr>
@@ -111,7 +111,7 @@ endfunction
 "   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 " augroup END
 
-" toggle numbers with ',n'
+" toggle numbers with '<leader>n'
 nnoremap <leader>n :call NumberToggle()<cr>
 function! NumberToggle()
     if &number && &relativenumber
@@ -169,7 +169,7 @@ nnoremap <leader>g :GundoToggle<cr>
 "toggle git gutter (airblade)
 nnoremap <leader>gg :GitGutterToggle<cr>
 
-" move among buffers with CTRL
+" move among buffers
 map gB :bprev<CR>
 map gb :bnext<CR>
 
@@ -215,12 +215,19 @@ set gdefault " use the `g` flag by default.
 " nnoremap ; :
 " vnoremap ; :
 
+" swap mark keys so ' goes to column whereas ` just goes to line
+nnoremap ` '
+nnoremap ' `
+
 " So we don't have to reach for escape to leave insert mode.
 " also puts it back in the same place so you don't have to hit right to delete
 " a word
 inoremap jf <esc>l
 inoremap fj <esc>l
 inoremap jj <esc>l
+
+" map :w + Enter in insert mode to actually write
+inoremap :w<cr> <esc>:w<cr>
 
 " open splits to right and down
 set splitbelow
