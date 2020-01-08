@@ -24,7 +24,7 @@ Plugin 'ervandew/supertab'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 
 " Source Writing Plugins too
-if filereadable(expand("~/vimrc/.vimrc.plugins.writing")) | exe "source ~/vimrc/.vimrc.plugins.writing" | endif
+if filereadable(expand("~/.vim/.vimrc.plugins.writing")) | exe "source ~/.vim/.vimrc.plugins.writing" | endif
 
 " All plugins must be added before the following line
 call vundle#end()            " required

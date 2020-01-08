@@ -168,12 +168,12 @@ endfunction
 " === OTHER CONFIG FILES ===
 
 " Source plugins
-if filereadable(expand("~/vimrc/.vimrc.colors")) | exe "source ~/vimrc/.vimrc.colors" | endif
+if filereadable(expand("~/.vim/.vimrc.colors")) | exe "source ~/.vim/.vimrc.colors" | endif
 
 " Source plugins
-if filereadable(expand("~/vimrc/.vimrc.plugins")) | exe "source ~/vimrc/.vimrc.plugins" | endif
+if filereadable(expand("~/.vim/.vimrc.plugins")) | exe "source ~/.vim/.vimrc.plugins" | endif
 
 " Source writing-related stuff
-if filereadable(expand("~/vimrc/.vimrc.writing")) | exe "source ~/vimrc/.vimrc.writing" | endif
+if filereadable(expand("~/.vim/.vimrc.writing")) | exe "source ~/.vim/.vimrc.writing" | endif
 
 " === END OTHER CONFIG FILES ===

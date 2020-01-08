@@ -10,7 +10,7 @@ cd ~/.vim;
 
 rm -rf * .*
 
-git clone https://github.com/tuckerww/vimrc.git
+git clone https://github.com/tuckerww/vimrc.git .
 
 rm -f ~/.vimrc
 
