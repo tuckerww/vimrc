@@ -9,6 +9,11 @@ let g:vimwiki_ext2syntax = {'.rmd': 'markdown', '.Rmd': 'markdown', '.md': 'mark
 "  call remote_startserver('VIM')
 "endif
 
+" fix indentLine plugin conceal issues and link-hiding issue
+let g:indentLine_setConceal = 0
+" don't conceal special characters
+set conceallevel=0
+
 " === END SETTINGS ===
 
 " === FUNCTIONS ===

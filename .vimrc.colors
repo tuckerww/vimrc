@@ -31,7 +31,14 @@ hi clear SignColumn
 hi SignColumn guibg=NONE ctermbg=NONE
 hi FoldColumn guibg=NONE ctermbg=NONE
 
-"set cursorline
 "hi CursorLine cterm=NONE ctermbg=DarkGrey
+"set cursorline
+"set colorcolumn=80
+
+" :h hl-SpellBad
+hi SpellBad ctermbg=520 cterm=underline
+hi SpellCap ctermbg=520 cterm=underline
+hi SpellLocal ctermbg=500 cterm=underline
+hi SpellRare ctermbg=503 cterm=underline
 
 " === END COLORS ===

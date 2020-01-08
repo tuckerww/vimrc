@@ -17,14 +17,19 @@ set hidden
 set noshowmode
 set history=2000
 set wildmenu
+set showcmd
 set number
 set relativenumber
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set mouse=a
 set ttymouse=xterm2
 let g:wheel#scroll_on_wrap = 1
+
+" Open splits to right and down
+set splitbelow
+set splitright
 
 " Make search more sane
 set ignorecase " case insensitive search
@@ -55,13 +60,22 @@ let g:netrw_winsize = 20
 
 " === AUTO COMMANDS ===
 
+" File-specific mappings
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd Filetype javascript inoremap cl_ console.log();<esc>hi
+
+" Spacing by file-type
+autocmd BufRead,BufNewFile *.vue setfiletype html
+autocmd Filetype php setlocal ts=2 sw=4 sts=0 expandtab
+autocmd Filetype html setlocal ts=4 sw=4 sts=0 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
+
 
 " === END AUTO COMMANDS ===
 
 " === MAPPINGS ===
 
-" Map comma as leader
+" Map backslash as leader
 let mapleader = "\\"
 
 " Move among buffers with CTRL
@@ -71,10 +85,26 @@ map gB :bprev<CR>
 " So we don't have to reach for escape to leave insert mode
 " Also puts it back in the same place so you don't have to hit right to delete a word
 inoremap jf <esc>l
+inoremap fj <esc>l
+inoremap jj <esc>l
+
+" swap mark keys so ' goes to column whereas ` just goes to line
+nnoremap ` '
+nnoremap ' `
+
+" Map :w + Enter in insert mode to actually write
+inoremap :w<cr> <esc>:w<cr>
+
+" Clear search
+nnoremap <leader><space> :noh<cr>
+
+" Wrap space-delimited word in backticks like `so`
+nnoremap <leader>w lBi`<ESC>Ea`<ESC>
 
 " Force delete buffer
 nnoremap <leader>q :bd!<cr>
 
+nnoremap <leader>p :set paste!<cr>
 nnoremap <leader>s :set spell!<cr>
 nnoremap <leader>p :set paste!<cr>
 
@@ -110,14 +140,14 @@ endfunction
 "nnoremap ; :
 "vnoremap ; :
 
-"unset relative when entering insert mode or losing focus
+" Unset relative when entering insert mode or losing focus
 "augroup numbertoggle
 "  autocmd!
 "  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 "  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 "augroup END
 
-" Toggle numbers with ',n'
+" Toggle numbers with '<leader>n'
 nnoremap <leader>n :call NumberToggle()<cr>
 function! NumberToggle()
     if &number && &relativenumber
