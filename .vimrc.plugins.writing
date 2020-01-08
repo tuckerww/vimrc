@@ -1,0 +1,26 @@
+" === PLUGINS ===
+
+" For writing:
+Plugin 'reedes/vim-pencil'
+Plugin 'reedes/vim-litecorrect'
+Plugin 'kana/vim-textobj-user'
+Plugin 'reedes/vim-textobj-sentence'
+Plugin 'reedes/vim-wordy'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+Plugin 'reedes/vim-wheel'
+
+" For latex:
+Plugin 'xuhdev/vim-latex-live-preview'
+"Plugin 'lervag/vimtex'
+
+" For markdown/rmarkdown:
+Plugin 'vimwiki/vimwiki'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'vim-pandoc/vim-rmarkdown'
+
+" :h vim-rmarkdown
+" :RMarkdown html
+
+" === END PLUGINS ===

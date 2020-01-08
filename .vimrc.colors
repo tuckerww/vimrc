@@ -1,0 +1,37 @@
+" === COLORS ===
+
+set t_Co=256
+set background=dark
+colorscheme delek
+"colorscheme Monokai
+"colorscheme elflord
+"colorscheme 0x7A69_dark
+"colorscheme 1989
+"colo 256-jungle
+"colo Benokai
+"colo CandyPaper
+
+" Make search highlighting readable:
+hi IncSearch ctermbg=DarkGrey cterm=underline
+hi Search ctermbg=DarkGrey term=underline
+hi nonText ctermbg=NONE
+"hi IncSearch ctermbg=DarkGrey
+"hi Search ctermbg=DarkGrey
+
+" Vimwiki blue links:
+hi link VimwikiLink Type
+"hi VimwikiLink cterm=underline ctermfg=33
+
+" Transparant background:
+hi Normal guibg=NONE ctermbg=NONE
+hi LineNr guibg=NONE ctermbg=NONE
+hi EndOfBuffer guibg=NONE ctermbg=NONE
+let g:gitgutter_override_sign_column_highlight = 0
+hi clear SignColumn
+hi SignColumn guibg=NONE ctermbg=NONE
+hi FoldColumn guibg=NONE ctermbg=NONE
+
+"set cursorline
+"hi CursorLine cterm=NONE ctermbg=DarkGrey
+
+" === END COLORS ===

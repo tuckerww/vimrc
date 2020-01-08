@@ -1,0 +1,65 @@
+" === PLUGINS ===
+
+" Required for vundle
+filetype off
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" Alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" Let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'powerline/fonts'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'henrik/vim-indexed-search'
+Plugin 'sjl/gundo.vim'
+Plugin 'ervandew/supertab'
+Plugin 'PotatoesMaster/i3-vim-syntax'
+
+" Source Writing Plugins too
+if filereadable(expand("~/vimrc/.vimrc.plugins.writing")) | exe "source ~/vimrc/.vimrc.plugins.writing" | endif
+
+" All plugins must be added before the following line
+call vundle#end()            " required
+
+" To install plugins run
+":PluginInstall
+
+" === END PLUGINS ===
+
+" === PLUGIN DEPENDANT SETTINGS ===
+
+filetype plugin indent on " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
+" Airline settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_theme = 'angr'
+"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+"let g:airline_skip_empty_sections = 1
+"let g:airline_theme = 'hybrid'
+"let g:airline_theme = 'powerlineish'
+"let g:airline_theme = 'alduin'
+
+" === END PLUGIN DEPENDANT SETTINGS ===
+
+" === PLUGIN DEPENDANT MAPPINGS ===
+
+" Open Gundo
+" See https://sjl.bitbucket.io/gundo.vim/#installation
+nnoremap <leader>G :GundoToggle<cr>
+
+" Toggle git gutter (airblade)
+nnoremap <leader>gg :GitGutterToggle<cr>
+
+" === END PLUGIN DEPENDANT MAPPINGS ===

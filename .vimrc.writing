@@ -1,0 +1,89 @@
+" === SETTINGS ===
+
+" Vimwiki with markdown support
+let g:vimwiki_ext2syntax = {'.rmd': 'markdown', '.Rmd': 'markdown', '.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+" helppage -> :h vimwiki-syntax
+
+" For latex servername:
+"if empty(v:servername) && exists('*remote_startserver')
+"  call remote_startserver('VIM')
+"endif
+
+" === END SETTINGS ===
+
+" === FUNCTIONS ===
+
+" Toggle writing mode
+function! WritingMode()
+   setlocal formatoptions=1
+   setlocal noexpandtab
+   map j gj
+   map k gk
+   setlocal spell spelllang=en_us
+   set thesaurus+=~/.vim/dictionaries/words.txt
+   set complete+=s
+   set formatprg=par
+   setlocal wrap
+   setlocal linebreak
+endfu
+
+function! VimwikiLinkHandler(link)
+  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+  "   2) [[vfile:./|Wiki Home]]
+  let link = a:link
+  if link =~# '^vfile:'
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'e ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+endfunction
+
+" === END FUNCTIONS ===
+
+" === MAPPINGS ===
+
+" Map <leader>cc to generate pdf for .ms, .md, or .Rmd file
+inoremap \cc <esc>:silent w<cr>:silent !~/bin/ctpdf.sh %<CR><C-L>
+nnoremap <leader>cc :silent w<cr>:silent !~/bin/ctpdf.sh %<CR><C-L>
+
+"inoremap \cc <esc>:!ctpdf.sh %<CR><C-L>
+"nnoremap <leader>cc :!ctpdf.sh %<CR><C-L>
+
+" Toggle writing mode
+nnoremap <leader>wm :call WritingMode()<cr>
+
+" Toggle Goyo
+nnoremap <leader>g :Goyo<cr>:hi SignColumn guibg=NONE ctermbg=NONE<cr>
+"nnoremap <leader>g :Goyo<cr>:source ~/.vimrc<cr>
+
+" --- dictionary / thesaurus lookups ---
+
+" Follow these instructions first to set up dictionary files:
+" http://xmodulo.com/how-to-look-up-dictionary-via-command-line-on-linux.html
+
+" Lookup word under cursor using dict with all dictionaries and display in new split
+nnoremap <leader>d :new\|0read!dict <c-r>=expand("<cword>")<cr><cr>
+
+" Lookup word under cursor using dict with all dictionaries and display in new buffer
+nnoremap <leader>D :enew\|0read!dict <c-r>=expand("<cword>")<cr><cr>
+
+" Lookup word under cursor using dict with just offline dict and display in new split
+nnoremap <leader>dd :new\|0read!dict -d gcide <c-r>=expand("<cword>")<cr><cr>
+
+" Lookup word under cursor using dict thesaurus and display in new split
+nnoremap <leader>t :new\|0read!dict -d moby-thesaurus <c-r>=expand("<cword>")<cr><cr>
+
+" Use <leader>c then type dict <c-r>" to paste <word>, then correct, to manually look up words that are plural, mispelled, etc.
+
+" --- end dictionary lookups ---
+
+" === END MAPPINGS ===

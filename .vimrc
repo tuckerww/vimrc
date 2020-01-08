@@ -1,88 +1,99 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" === SETTINGS ===
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'powerline/fonts'
-"Plugin 'bling/vim-bufferline'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
-"Plugin 'scrooloose/nerd"tree'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'henrik/vim-indexed-search'
-Plugin 'sjl/gundo.vim'
-Plugin 'ervandew/supertab'
-" for writing:
-Plugin 'reedes/vim-pencil'
-Plugin 'reedes/vim-litecorrect'
-Plugin 'kana/vim-textobj-user'
-Plugin 'reedes/vim-textobj-sentence'
-Plugin 'reedes/vim-wordy'
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
-Plugin 'reedes/vim-wheel'
-
-"for latex:
-Plugin 'lervag/vimtex'
-Plugin 'xuhdev/vim-latex-live-preview'
-"for notes
-Plugin 'vimwiki/vimwiki'
-
-":PluginInstall
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Be IMproved
+set nocompatible
 syntax on
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+
+" Set backup and swap dirs:
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 
 set encoding=utf-8
 set fileencodings=utf-8
 set laststatus=2
 set ttimeoutlen=10
+set hidden
 set noshowmode
+set history=2000
+set wildmenu
 set number
 set relativenumber
-filetype plugin indent on
 set expandtab
 set tabstop=2
 set shiftwidth=2
-set hidden
 set mouse=a
 set ttymouse=xterm2
-set history=2000
+let g:wheel#scroll_on_wrap = 1
 
-"set backup and swap dirs:
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+" Make search more sane
+set ignorecase " case insensitive search
+set smartcase " If there are uppercase letters, become case-sensitive.
+set incsearch " live incremental searching
+set showmatch " live match highlighting
+set hlsearch " highlight matches
+set gdefault " use the `g` flag by default.
 
-"shift+tab unindents for command mode
-nnoremap <S-Tab> <<
-"shift+tab unindents for insert mode
-inoremap <S-Tab> <C-d>
-"note that ctrl-t and ctrl-d are built-in indent and unindent commands
+" Set viminfo settings
+set viminfo='100,<1000,s100,:200,n~/.vim/.viminfo
+" set viminfo='100,<1000,s100,:200,%,n~/.vim/.viminfo
+"  'q  : q, number of edited file remembered
+"  <m  : m, number of lines saved for each register
+"  :p  : p, number of  history cmd lines remembered
+"  %   : saves and restore the buffer list
+"  n...: fully qualified path to the viminfo files (note that this is a literal 'n')
+
+" Make netrw better
+" Refer to https://shapeshed.com/vim-netrw/ for more info
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_liststyle = 3
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
+
+" === END SETTINGS ===
+
+" === AUTO COMMANDS ===
+
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+" === END AUTO COMMANDS ===
+
+" === MAPPINGS ===
 
 " Map comma as leader
 let mapleader = "\\"
 
-nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=NONE ctermbg=DarkGrey<cr>
+" Move among buffers with CTRL
+map gb :bnext<CR>
+map gB :bprev<CR>
+
+" So we don't have to reach for escape to leave insert mode
+" Also puts it back in the same place so you don't have to hit right to delete a word
+inoremap jf <esc>l
+
+" Force delete buffer
+nnoremap <leader>q :bd!<cr>
 
 nnoremap <leader>s :set spell!<cr>
+nnoremap <leader>p :set paste!<cr>
 
-"Note : shift+left-mouse copies and shift+rightmouse pastes!
-"use ',m' to toggle mouse selection
+nnoremap <leader>bb :set cursorline!<cr> :hi CursorLine cterm=none ctermbg=black<cr>
+
+nnoremap <leader>hh :new<cr>
+nnoremap <leader>vv :vnew<cr>
+"nnoremap <leader>cc :enew<cr>
+
+" Open command in new buffer, split, or vsplit  with ,[char]
+nnoremap <leader>c :enew\|%!
+nnoremap <leader>h :new\|0read!
+nnoremap <leader>v :vnew\|0read!
+
+" Open explorer in vertical split
+nnoremap <leader>x :Vex<cr>
+
+" Note : shift+left-mouse copies and shift+rightmouse pastes!
+" Use ',m' to toggle mouse selection
 nnoremap <leader>m :call MouseToggle()<cr>
 function! MouseToggle()
     if !empty(&mouse)
@@ -94,14 +105,19 @@ function! MouseToggle()
     endif
 endfunction
 
-" unset relative when entering insert mode or losing focus
-" augroup numbertoggle
-"   autocmd!
-"   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-"   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-" augroup END
+" So we don't have to press shift when we want to get into command mode.
+" --- Commented out so you can use ';' to progress forward in per-line character search ---
+"nnoremap ; :
+"vnoremap ; :
 
-" toggle numbers with ',n'
+"unset relative when entering insert mode or losing focus
+"augroup numbertoggle
+"  autocmd!
+"  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+"  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+"augroup END
+
+" Toggle numbers with ',n'
 nnoremap <leader>n :call NumberToggle()<cr>
 function! NumberToggle()
     if &number && &relativenumber
@@ -117,130 +133,17 @@ function! NumberToggle()
     endif
 endfunction
 
-" Toggle writing mode
-nnoremap <leader>wm :call WritingMode()<cr>
-function! WritingMode()
-   setlocal formatoptions=1
-   setlocal noexpandtab
-   map j gj
-   map k gk
-   setlocal spell spelllang=en_us
-   " set thesaurus+=~/.vim/thes
-   set complete+=s
-   set formatprg=par
-   setlocal wrap
-   setlocal linebreak
-endfu
+" === END MAPPINGS ===
 
-let g:wheel#scroll_on_wrap = 1
-let g:wheel#map#mouse = 0
+" === OTHER CONFIG FILES ===
 
-" open command in new buffer, split, or vsplit  with ,[char]
-nnoremap <leader>c :enew\|%!
-nnoremap <leader>h :new\|0read!
-nnoremap <leader>v :vnew\|0read!
+" Source plugins
+if filereadable(expand("~/vimrc/.vimrc.colors")) | exe "source ~/vimrc/.vimrc.colors" | endif
 
-" nnoremap <leader>cc :enew<cr>
-" nnoremap <leader>ss :new<cr>
-" nnoremap <leader>vv :vnew<cr>
+" Source plugins
+if filereadable(expand("~/vimrc/.vimrc.plugins")) | exe "source ~/vimrc/.vimrc.plugins" | endif
 
-" force delete buffer with ,bd
-nnoremap <leader>q :bd!<cr>
+" Source writing-related stuff
+if filereadable(expand("~/vimrc/.vimrc.writing")) | exe "source ~/vimrc/.vimrc.writing" | endif
 
-"open Gundo
-"https://sjl.bitbucket.io/gundo.vim/#installation
-nnoremap <leader>g :GundoToggle<cr>
-
-"toggle git gutter (airblade)
-nnoremap <leader>gg :GitGutterToggle<cr>
-
-" move among buffers with CTRL
-map gT :bprev<CR>
-map gt :bnext<CR>
-
-" Note crtl-j and ctrl-k now wheel down and up with wheel plugin
-
-" make netrw better
-" refer to https://shapeshed.com/vim-netrw/ for more info
-let g:netrw_banner = 0
-let g:netrw_browse_split = 4
-let g:netrw_liststyle = 3
-let g:netrw_altv = 1
-let g:netrw_winsize = 20
-
-" open explorer in vertical split
-nnoremap <leader>x :Vex<cr>
-
-" increase and decrease split width
-nnoremap <leader>ll :vertical resize +3<cr>
-nnoremap <leader>hh :vertical resize -3<cr>
-
-" make ack.vim use ag instead of ack
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
-  cnoreabbrev ag Ack!
-  cnoreabbrev aG Ack!
-  cnoreabbrev Ag Ack!
-  cnoreabbrev AG Ack!
-endif
-
-" ack/ag search
-nnoremap <leader>a :Ack!<Space>
-
-" Make search more sane
-set ignorecase " case insensitive search
-set smartcase " If there are uppercase letters, become case-sensitive.
-set incsearch " live incremental searching
-set showmatch " live match highlighting
-set hlsearch " highlight matches
-set gdefault " use the `g` flag by default.
-
-" So we don't have to press shift when we want to get into command mode.
-" --- Commented out so you can use ';' to progress forward in per-line character search ---
-" nnoremap ; :
-" vnoremap ; :
-
-" So we don't have to reach for escape to leave insert mode.
-" also puts it back in the same place so you don't have to hit right to delete
-" a word
-inoremap jf <esc>l
-
-" vimwiki with markdown support
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-" helppage -> :h vimwiki-syntax 
-
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-
-"for latex servername:
-" if empty(v:servername) && exists('*remote_startserver')
-"   call remote_startserver('VIM')
-" endif
-
-"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-"let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#enabled = 0
-"let g:airline_theme = 'hybrid'
-"let g:airline_theme = 'powerlineish'
-"let g:airline_theme = 'alduin'
-let g:airline_theme = 'angr'
-
-set t_Co=256
-set background=dark
-"colorscheme Monokai
-"colorscheme elflord
-colorscheme delek
-" colorscheme CandyPaper
-"colorscheme 0x7A69_dark
-"colorscheme 1989
-
-"Make search highlighting readable:
-" hi IncSearch ctermbg=DarkGrey
-" hi Search ctermbg=DarkGrey
-hi IncSearch ctermbg=DarkGrey cterm=underline
-hi Search ctermbg=DarkGrey cterm=underline
-hi SpellBad ctermbg=520 cterm=underline
-hi nonText ctermbg=NONE
-" highlight the cursorline:
-hi CursorLine cterm=NONE ctermbg=DarkGrey
+" === END OTHER CONFIG FILES ===
